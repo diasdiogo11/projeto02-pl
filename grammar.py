@@ -10,12 +10,19 @@ class ArithGrammar:
     )
 
     def __init__(self):
-        self.lexer = ArithLexer()
-        self.lexer.build()
-        self.parser = pyacc.yacc(module=self)
+        self.yacc = None
+        self.lexer = None
+        self.tokens = None
 
-    def parse(self, data):
-        return self.parser.parse(data, lexer=self.lexer.lexer)
+    def build(self, **kwargs):
+        self.lexer = ArithLexer()
+        self.lexer.build(**kwargs)
+        self.tokens = self.lexer.tokens
+        self.yacc = pyacc.yacc(module=self, **kwargs)
+
+    def parse(self, string):
+        self.lexer.input(string)
+        return self.yacc.parse(lexer=self.lexer.lexer)
 
     def p_statement_assign(self, p):
         'statement : VAR "=" expression ";"'
@@ -24,13 +31,18 @@ class ArithGrammar:
     def p_statement_expr(self, p):
         'statement : expression ";"'
         p[0] = ('expr', p[1])
+    
+    def p_statement_write(self, p):
+        '''statement : ESCREVER "(" expression ")" ";"
+                     | ESCREVER "(" STRING ")" ";"'''
+        p[0] = ('write', p[3])
 
     def p_expression_binop(self, p):
         '''expression : expression '+' expression
                       | expression '-' expression
                       | expression '*' expression
                       | expression '/' expression'''
-        p[0] = ('binop', p[2], p[1], p[3])
+        p[0] = ('op', p[2], p[1], p[3])
 
     def p_expression_group(self, p):
         'expression : "(" expression ")"'

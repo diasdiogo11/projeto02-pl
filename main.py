@@ -4,26 +4,24 @@ from pprint import PrettyPrinter
 
 pp = PrettyPrinter(sort_dicts=False)
 
-ag = ArithGrammar()
+lg = ArithGrammar()
+lg.build()
 
-# Sequência de instruções
-exemplos = [
-    "tmp_01 = 2*3+4 ;",
-    "a1_ = 20 - (3 * 5) ;",
-    "idade_valida? = 1;",
-    "mult_3! = a1_ * 3 ;"
-]
 
-# Avaliar as instruções
-for frase in exemplos:
-    print(f"----------------------")
-    print(f"--- frase '{frase}'")
-    ast = ag.parse(frase)
-    print("AST:")
-    pp.pprint(ast)
-    result = ArithEval.evaluate(ast)
-    print("Resultado da avaliação:", result)
+def process_input(input_string):
+    try:
+        ast = lg.parse(input_string)
+        resultado = ArithEval.evaluate(ast)
+        print(f"<< {resultado}")
+    except Exception as e:
+        print(e)
 
-# Mostrar o valor da última instrução avaliada
-final_result = ArithEval.evaluate(ast)
-print("Resultado final:", final_result)
+
+print("Bem-vindo ao interpretador aritmético. Comece a inserir suas expressões ou comandos:")
+
+while True:
+    expr = input(">> ")
+    if expr == "":
+        break
+    process_input(expr)
+

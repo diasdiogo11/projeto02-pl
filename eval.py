@@ -26,8 +26,17 @@ class ArithEval:
         if type(ast) is str:
             return ArithEval.symbols.get(ast, ast)
         if type(ast) is tuple:
-            return ArithEval._eval_tuple(ast)
+            if ast[0] == 'write':
+                return ArithEval._eval_write(ast)
+            else:
+                return ArithEval._eval_tuple(ast)
         raise Exception(f"Unknown AST type: {type(ast)}")
+
+    @staticmethod
+    def _eval_write(ast):
+        expr = ArithEval.evaluate(ast[1])
+        ArithEval.operators['esc']([expr])
+        return expr
         
     @staticmethod
     def _eval_tuple(ast):
@@ -36,7 +45,7 @@ class ArithEval:
             value = ArithEval.evaluate(ast[2])
             ArithEval.symbols[var_name] = value
             return value
-        elif ast[0] == 'binop':
+        elif ast[0] == 'op':
             op = ast[1]
             left = ArithEval.evaluate(ast[2])
             right = ArithEval.evaluate(ast[3])
