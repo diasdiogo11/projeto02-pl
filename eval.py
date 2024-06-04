@@ -1,4 +1,3 @@
-# eval.py
 class ArithEval:
 
     symbols = {}
@@ -11,6 +10,7 @@ class ArithEval:
         "seq": lambda args: args[-1],  # para sequência de instruções, retorna o último valor
         "atr": lambda args: ArithEval._attrib(args),  # atribuição de valor a uma variável
         "esc": lambda args: print(args[0]),  # função de saída (print)
+        "concat": lambda args: args[0] + args[1],  # concatenação de strings
     }
 
     @staticmethod
@@ -35,6 +35,8 @@ class ArithEval:
     @staticmethod
     def _eval_write(ast):
         expr = ArithEval.evaluate(ast[1])
+        if isinstance(expr, str):
+            expr = ArithEval._interpolate(expr)
         ArithEval.operators['esc']([expr])
         return expr
         
@@ -50,8 +52,22 @@ class ArithEval:
             left = ArithEval.evaluate(ast[2])
             right = ArithEval.evaluate(ast[3])
             return ArithEval.operators[op]([left, right])
+        elif ast[0] == 'concat':
+            left = ArithEval.evaluate(ast[1])
+            right = ArithEval.evaluate(ast[2])
+            return ArithEval.operators['concat']([left, right])
         elif ast[0] == 'num':
             return ast[1]
         elif ast[0] == 'var':
             return ArithEval.symbols[ast[1]]
+        elif ast[0] == 'string':
+            return ast[1]
         raise Exception(f"Unknown AST tuple type: {ast[0]}")
+
+    @staticmethod
+    def _interpolate(string):
+        import re
+        def replacer(match):
+            var_name = match.group(1)
+            return str(ArithEval.symbols.get(var_name, ''))
+        return re.sub(r'\#\{(\w+)\}', replacer, string)

@@ -1,7 +1,7 @@
 import ply.lex as plex
 
 class ArithLexer:
-    tokens = ("NUM", "VAR", "ESCREVER", "STRING")
+    tokens = ("NUM", "VAR", "ESCREVER", "STRING", "CONCAT")
     literals = ['+', '-', '*', '/', '(', ')', '=', ';']
     t_ignore = " \t\n"
 
@@ -19,14 +19,31 @@ class ArithLexer:
 
     def t_ESCREVER(self, t):
         r"[Ee][Ss][Cc][Rr][Ee][Vv][Ee][Rr]"
-        t.type = 'ESCREVER'  # Define o tipo do token como 'ESCREVER'
+        t.type = 'ESCREVER'
         return t
-    
+
     def t_STRING(self, t):
         r'\".*?\"'
         t.value = t.value[1:-1]
         return t
 
+    def t_CONCAT(self, t):
+        r'<>'
+        t.type = 'CONCAT'
+        return t
+    
+    def t_comment_multiline(self, t):
+        r'\{\-(.|\n)*?\-\}'
+        pass
+
+    def t_comment_singleline(self, t):
+        r'\-\-.*'
+        pass
+
+    def t_error(self, t):
+        print(f"Unexpected token: [{t.value[:10]}]")
+        exit(1)
+    
     def build(self, **kwargs):
         self.lexer = plex.lex(module=self, **kwargs)
 
@@ -35,7 +52,3 @@ class ArithLexer:
 
     def token(self):
         return self.lexer.token()
-
-    def t_error(self, t):
-        print(f"Unexpected token: [{t.value[:10]}]")
-        exit(1)

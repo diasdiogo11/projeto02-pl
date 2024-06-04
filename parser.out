@@ -7,33 +7,37 @@ Rule 1     statement -> VAR = expression ;
 Rule 2     statement -> expression ;
 Rule 3     statement -> ESCREVER ( expression ) ;
 Rule 4     statement -> ESCREVER ( STRING ) ;
-Rule 5     expression -> expression + expression
-Rule 6     expression -> expression - expression
-Rule 7     expression -> expression * expression
-Rule 8     expression -> expression / expression
-Rule 9     expression -> ( expression )
-Rule 10    expression -> NUM
-Rule 11    expression -> VAR
+Rule 5     statement -> ESCREVER ( VAR ) ;
+Rule 6     expression -> expression + expression
+Rule 7     expression -> expression - expression
+Rule 8     expression -> expression * expression
+Rule 9     expression -> expression / expression
+Rule 10    expression -> expression CONCAT expression
+Rule 11    expression -> ( expression )
+Rule 12    expression -> NUM
+Rule 13    expression -> VAR
+Rule 14    expression -> STRING
 
 Terminals, with rules where they appear
 
-(                    : 3 4 9
-)                    : 3 4 9
-*                    : 7
-+                    : 5
--                    : 6
-/                    : 8
-;                    : 1 2 3 4
+(                    : 3 4 5 11
+)                    : 3 4 5 11
+*                    : 8
++                    : 6
+-                    : 7
+/                    : 9
+;                    : 1 2 3 4 5
 =                    : 1
-ESCREVER             : 3 4
-NUM                  : 10
-STRING               : 4
-VAR                  : 1 11
+CONCAT               : 10
+ESCREVER             : 3 4 5
+NUM                  : 12
+STRING               : 4 14
+VAR                  : 1 5 13
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 3 5 5 6 6 7 7 8 8 9
+expression           : 1 2 3 6 6 7 7 8 8 9 9 10 10 11
 statement            : 0
 
 Parsing method: LALR
@@ -45,18 +49,22 @@ state 0
     (2) statement -> . expression ;
     (3) statement -> . ESCREVER ( expression ) ;
     (4) statement -> . ESCREVER ( STRING ) ;
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
+    (5) statement -> . ESCREVER ( VAR ) ;
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
     VAR             shift and go to state 2
     ESCREVER        shift and go to state 4
     (               shift and go to state 5
-    NUM             shift and go to state 6
+    NUM             shift and go to state 7
+    STRING          shift and go to state 6
 
     statement                      shift and go to state 1
     expression                     shift and go to state 3
@@ -70,370 +78,517 @@ state 1
 state 2
 
     (1) statement -> VAR . = expression ;
-    (11) expression -> VAR .
+    (13) expression -> VAR .
 
-    =               shift and go to state 7
-    ;               reduce using rule 11 (expression -> VAR .)
-    +               reduce using rule 11 (expression -> VAR .)
-    -               reduce using rule 11 (expression -> VAR .)
-    *               reduce using rule 11 (expression -> VAR .)
-    /               reduce using rule 11 (expression -> VAR .)
+    =               shift and go to state 8
+    ;               reduce using rule 13 (expression -> VAR .)
+    +               reduce using rule 13 (expression -> VAR .)
+    -               reduce using rule 13 (expression -> VAR .)
+    *               reduce using rule 13 (expression -> VAR .)
+    /               reduce using rule 13 (expression -> VAR .)
+    CONCAT          reduce using rule 13 (expression -> VAR .)
 
 
 state 3
 
     (2) statement -> expression . ;
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    ;               shift and go to state 8
-    +               shift and go to state 9
-    -               shift and go to state 10
-    *               shift and go to state 11
-    /               shift and go to state 12
+    ;               shift and go to state 9
+    +               shift and go to state 10
+    -               shift and go to state 11
+    *               shift and go to state 12
+    /               shift and go to state 13
+    CONCAT          shift and go to state 14
 
 
 state 4
 
     (3) statement -> ESCREVER . ( expression ) ;
     (4) statement -> ESCREVER . ( STRING ) ;
+    (5) statement -> ESCREVER . ( VAR ) ;
 
-    (               shift and go to state 13
+    (               shift and go to state 15
 
 
 state 5
 
-    (9) expression -> ( . expression )
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
+    (11) expression -> ( . expression )
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
     (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
 
-    expression                     shift and go to state 14
+    expression                     shift and go to state 16
 
 state 6
 
-    (10) expression -> NUM .
+    (14) expression -> STRING .
 
-    ;               reduce using rule 10 (expression -> NUM .)
-    +               reduce using rule 10 (expression -> NUM .)
-    -               reduce using rule 10 (expression -> NUM .)
-    *               reduce using rule 10 (expression -> NUM .)
-    /               reduce using rule 10 (expression -> NUM .)
-    )               reduce using rule 10 (expression -> NUM .)
+    ;               reduce using rule 14 (expression -> STRING .)
+    +               reduce using rule 14 (expression -> STRING .)
+    -               reduce using rule 14 (expression -> STRING .)
+    *               reduce using rule 14 (expression -> STRING .)
+    /               reduce using rule 14 (expression -> STRING .)
+    CONCAT          reduce using rule 14 (expression -> STRING .)
+    )               reduce using rule 14 (expression -> STRING .)
 
 
 state 7
 
-    (1) statement -> VAR = . expression ;
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
+    (12) expression -> NUM .
 
-    (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
+    ;               reduce using rule 12 (expression -> NUM .)
+    +               reduce using rule 12 (expression -> NUM .)
+    -               reduce using rule 12 (expression -> NUM .)
+    *               reduce using rule 12 (expression -> NUM .)
+    /               reduce using rule 12 (expression -> NUM .)
+    CONCAT          reduce using rule 12 (expression -> NUM .)
+    )               reduce using rule 12 (expression -> NUM .)
 
-    expression                     shift and go to state 16
 
 state 8
+
+    (1) statement -> VAR = . expression ;
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
+
+    (               shift and go to state 5
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
+
+    expression                     shift and go to state 18
+
+state 9
 
     (2) statement -> expression ; .
 
     $end            reduce using rule 2 (statement -> expression ; .)
 
 
-state 9
-
-    (5) expression -> expression + . expression
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
-
-    (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
-
-    expression                     shift and go to state 17
-
 state 10
 
-    (6) expression -> expression - . expression
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
+    (6) expression -> expression + . expression
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
     (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
-
-    expression                     shift and go to state 18
-
-state 11
-
-    (7) expression -> expression * . expression
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
-
-    (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
 
     expression                     shift and go to state 19
 
-state 12
+state 11
 
-    (8) expression -> expression / . expression
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
+    (7) expression -> expression - . expression
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
     (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
 
     expression                     shift and go to state 20
 
-state 13
+state 12
 
-    (3) statement -> ESCREVER ( . expression ) ;
-    (4) statement -> ESCREVER ( . STRING ) ;
-    (5) expression -> . expression + expression
-    (6) expression -> . expression - expression
-    (7) expression -> . expression * expression
-    (8) expression -> . expression / expression
-    (9) expression -> . ( expression )
-    (10) expression -> . NUM
-    (11) expression -> . VAR
+    (8) expression -> expression * . expression
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
-    STRING          shift and go to state 22
     (               shift and go to state 5
-    NUM             shift and go to state 6
-    VAR             shift and go to state 15
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
 
     expression                     shift and go to state 21
 
+state 13
+
+    (9) expression -> expression / . expression
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
+
+    (               shift and go to state 5
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
+
+    expression                     shift and go to state 22
+
 state 14
 
-    (9) expression -> ( expression . )
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (10) expression -> expression CONCAT . expression
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
-    )               shift and go to state 23
-    +               shift and go to state 9
-    -               shift and go to state 10
-    *               shift and go to state 11
-    /               shift and go to state 12
+    (               shift and go to state 5
+    NUM             shift and go to state 7
+    VAR             shift and go to state 17
+    STRING          shift and go to state 6
 
+    expression                     shift and go to state 23
 
 state 15
 
-    (11) expression -> VAR .
+    (3) statement -> ESCREVER ( . expression ) ;
+    (4) statement -> ESCREVER ( . STRING ) ;
+    (5) statement -> ESCREVER ( . VAR ) ;
+    (6) expression -> . expression + expression
+    (7) expression -> . expression - expression
+    (8) expression -> . expression * expression
+    (9) expression -> . expression / expression
+    (10) expression -> . expression CONCAT expression
+    (11) expression -> . ( expression )
+    (12) expression -> . NUM
+    (13) expression -> . VAR
+    (14) expression -> . STRING
 
-    )               reduce using rule 11 (expression -> VAR .)
-    +               reduce using rule 11 (expression -> VAR .)
-    -               reduce using rule 11 (expression -> VAR .)
-    *               reduce using rule 11 (expression -> VAR .)
-    /               reduce using rule 11 (expression -> VAR .)
-    ;               reduce using rule 11 (expression -> VAR .)
+    STRING          shift and go to state 25
+    VAR             shift and go to state 26
+    (               shift and go to state 5
+    NUM             shift and go to state 7
 
+    expression                     shift and go to state 24
 
 state 16
 
-    (1) statement -> VAR = expression . ;
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (11) expression -> ( expression . )
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    ;               shift and go to state 24
-    +               shift and go to state 9
-    -               shift and go to state 10
-    *               shift and go to state 11
-    /               shift and go to state 12
+    )               shift and go to state 27
+    +               shift and go to state 10
+    -               shift and go to state 11
+    *               shift and go to state 12
+    /               shift and go to state 13
+    CONCAT          shift and go to state 14
 
 
 state 17
 
-    (5) expression -> expression + expression .
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (13) expression -> VAR .
 
-    ;               reduce using rule 5 (expression -> expression + expression .)
-    +               reduce using rule 5 (expression -> expression + expression .)
-    -               reduce using rule 5 (expression -> expression + expression .)
-    )               reduce using rule 5 (expression -> expression + expression .)
-    *               shift and go to state 11
-    /               shift and go to state 12
-
-  ! *               [ reduce using rule 5 (expression -> expression + expression .) ]
-  ! /               [ reduce using rule 5 (expression -> expression + expression .) ]
-  ! +               [ shift and go to state 9 ]
-  ! -               [ shift and go to state 10 ]
+    )               reduce using rule 13 (expression -> VAR .)
+    +               reduce using rule 13 (expression -> VAR .)
+    -               reduce using rule 13 (expression -> VAR .)
+    *               reduce using rule 13 (expression -> VAR .)
+    /               reduce using rule 13 (expression -> VAR .)
+    CONCAT          reduce using rule 13 (expression -> VAR .)
+    ;               reduce using rule 13 (expression -> VAR .)
 
 
 state 18
 
-    (6) expression -> expression - expression .
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (1) statement -> VAR = expression . ;
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 6 (expression -> expression - expression .)
-    +               reduce using rule 6 (expression -> expression - expression .)
-    -               reduce using rule 6 (expression -> expression - expression .)
-    )               reduce using rule 6 (expression -> expression - expression .)
-    *               shift and go to state 11
-    /               shift and go to state 12
-
-  ! *               [ reduce using rule 6 (expression -> expression - expression .) ]
-  ! /               [ reduce using rule 6 (expression -> expression - expression .) ]
-  ! +               [ shift and go to state 9 ]
-  ! -               [ shift and go to state 10 ]
+    ;               shift and go to state 28
+    +               shift and go to state 10
+    -               shift and go to state 11
+    *               shift and go to state 12
+    /               shift and go to state 13
+    CONCAT          shift and go to state 14
 
 
 state 19
 
-    (7) expression -> expression * expression .
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (6) expression -> expression + expression .
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 7 (expression -> expression * expression .)
-    +               reduce using rule 7 (expression -> expression * expression .)
-    -               reduce using rule 7 (expression -> expression * expression .)
-    *               reduce using rule 7 (expression -> expression * expression .)
-    /               reduce using rule 7 (expression -> expression * expression .)
-    )               reduce using rule 7 (expression -> expression * expression .)
+    ;               reduce using rule 6 (expression -> expression + expression .)
+    +               reduce using rule 6 (expression -> expression + expression .)
+    -               reduce using rule 6 (expression -> expression + expression .)
+    CONCAT          reduce using rule 6 (expression -> expression + expression .)
+    )               reduce using rule 6 (expression -> expression + expression .)
+    *               shift and go to state 12
+    /               shift and go to state 13
 
-  ! +               [ shift and go to state 9 ]
-  ! -               [ shift and go to state 10 ]
-  ! *               [ shift and go to state 11 ]
-  ! /               [ shift and go to state 12 ]
+  ! *               [ reduce using rule 6 (expression -> expression + expression .) ]
+  ! /               [ reduce using rule 6 (expression -> expression + expression .) ]
+  ! +               [ shift and go to state 10 ]
+  ! -               [ shift and go to state 11 ]
+  ! CONCAT          [ shift and go to state 14 ]
 
 
 state 20
 
-    (8) expression -> expression / expression .
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (7) expression -> expression - expression .
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 8 (expression -> expression / expression .)
-    +               reduce using rule 8 (expression -> expression / expression .)
-    -               reduce using rule 8 (expression -> expression / expression .)
-    *               reduce using rule 8 (expression -> expression / expression .)
-    /               reduce using rule 8 (expression -> expression / expression .)
-    )               reduce using rule 8 (expression -> expression / expression .)
+    ;               reduce using rule 7 (expression -> expression - expression .)
+    +               reduce using rule 7 (expression -> expression - expression .)
+    -               reduce using rule 7 (expression -> expression - expression .)
+    CONCAT          reduce using rule 7 (expression -> expression - expression .)
+    )               reduce using rule 7 (expression -> expression - expression .)
+    *               shift and go to state 12
+    /               shift and go to state 13
 
-  ! +               [ shift and go to state 9 ]
-  ! -               [ shift and go to state 10 ]
-  ! *               [ shift and go to state 11 ]
-  ! /               [ shift and go to state 12 ]
+  ! *               [ reduce using rule 7 (expression -> expression - expression .) ]
+  ! /               [ reduce using rule 7 (expression -> expression - expression .) ]
+  ! +               [ shift and go to state 10 ]
+  ! -               [ shift and go to state 11 ]
+  ! CONCAT          [ shift and go to state 14 ]
 
 
 state 21
 
-    (3) statement -> ESCREVER ( expression . ) ;
-    (5) expression -> expression . + expression
-    (6) expression -> expression . - expression
-    (7) expression -> expression . * expression
-    (8) expression -> expression . / expression
+    (8) expression -> expression * expression .
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    )               shift and go to state 25
-    +               shift and go to state 9
-    -               shift and go to state 10
-    *               shift and go to state 11
-    /               shift and go to state 12
+    ;               reduce using rule 8 (expression -> expression * expression .)
+    +               reduce using rule 8 (expression -> expression * expression .)
+    -               reduce using rule 8 (expression -> expression * expression .)
+    *               reduce using rule 8 (expression -> expression * expression .)
+    /               reduce using rule 8 (expression -> expression * expression .)
+    CONCAT          reduce using rule 8 (expression -> expression * expression .)
+    )               reduce using rule 8 (expression -> expression * expression .)
+
+  ! +               [ shift and go to state 10 ]
+  ! -               [ shift and go to state 11 ]
+  ! *               [ shift and go to state 12 ]
+  ! /               [ shift and go to state 13 ]
+  ! CONCAT          [ shift and go to state 14 ]
 
 
 state 22
 
-    (4) statement -> ESCREVER ( STRING . ) ;
+    (9) expression -> expression / expression .
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    )               shift and go to state 26
+    ;               reduce using rule 9 (expression -> expression / expression .)
+    +               reduce using rule 9 (expression -> expression / expression .)
+    -               reduce using rule 9 (expression -> expression / expression .)
+    *               reduce using rule 9 (expression -> expression / expression .)
+    /               reduce using rule 9 (expression -> expression / expression .)
+    CONCAT          reduce using rule 9 (expression -> expression / expression .)
+    )               reduce using rule 9 (expression -> expression / expression .)
+
+  ! +               [ shift and go to state 10 ]
+  ! -               [ shift and go to state 11 ]
+  ! *               [ shift and go to state 12 ]
+  ! /               [ shift and go to state 13 ]
+  ! CONCAT          [ shift and go to state 14 ]
 
 
 state 23
 
-    (9) expression -> ( expression ) .
+    (10) expression -> expression CONCAT expression .
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 9 (expression -> ( expression ) .)
-    +               reduce using rule 9 (expression -> ( expression ) .)
-    -               reduce using rule 9 (expression -> ( expression ) .)
-    *               reduce using rule 9 (expression -> ( expression ) .)
-    /               reduce using rule 9 (expression -> ( expression ) .)
-    )               reduce using rule 9 (expression -> ( expression ) .)
+    ;               reduce using rule 10 (expression -> expression CONCAT expression .)
+    +               reduce using rule 10 (expression -> expression CONCAT expression .)
+    -               reduce using rule 10 (expression -> expression CONCAT expression .)
+    CONCAT          reduce using rule 10 (expression -> expression CONCAT expression .)
+    )               reduce using rule 10 (expression -> expression CONCAT expression .)
+    *               shift and go to state 12
+    /               shift and go to state 13
+
+  ! *               [ reduce using rule 10 (expression -> expression CONCAT expression .) ]
+  ! /               [ reduce using rule 10 (expression -> expression CONCAT expression .) ]
+  ! +               [ shift and go to state 10 ]
+  ! -               [ shift and go to state 11 ]
+  ! CONCAT          [ shift and go to state 14 ]
 
 
 state 24
+
+    (3) statement -> ESCREVER ( expression . ) ;
+    (6) expression -> expression . + expression
+    (7) expression -> expression . - expression
+    (8) expression -> expression . * expression
+    (9) expression -> expression . / expression
+    (10) expression -> expression . CONCAT expression
+
+    )               shift and go to state 29
+    +               shift and go to state 10
+    -               shift and go to state 11
+    *               shift and go to state 12
+    /               shift and go to state 13
+    CONCAT          shift and go to state 14
+
+
+state 25
+
+    (4) statement -> ESCREVER ( STRING . ) ;
+    (14) expression -> STRING .
+
+  ! shift/reduce conflict for ) resolved as shift
+    )               shift and go to state 30
+    +               reduce using rule 14 (expression -> STRING .)
+    -               reduce using rule 14 (expression -> STRING .)
+    *               reduce using rule 14 (expression -> STRING .)
+    /               reduce using rule 14 (expression -> STRING .)
+    CONCAT          reduce using rule 14 (expression -> STRING .)
+
+  ! )               [ reduce using rule 14 (expression -> STRING .) ]
+
+
+state 26
+
+    (5) statement -> ESCREVER ( VAR . ) ;
+    (13) expression -> VAR .
+
+  ! shift/reduce conflict for ) resolved as shift
+    )               shift and go to state 31
+    +               reduce using rule 13 (expression -> VAR .)
+    -               reduce using rule 13 (expression -> VAR .)
+    *               reduce using rule 13 (expression -> VAR .)
+    /               reduce using rule 13 (expression -> VAR .)
+    CONCAT          reduce using rule 13 (expression -> VAR .)
+
+  ! )               [ reduce using rule 13 (expression -> VAR .) ]
+
+
+state 27
+
+    (11) expression -> ( expression ) .
+
+    ;               reduce using rule 11 (expression -> ( expression ) .)
+    +               reduce using rule 11 (expression -> ( expression ) .)
+    -               reduce using rule 11 (expression -> ( expression ) .)
+    *               reduce using rule 11 (expression -> ( expression ) .)
+    /               reduce using rule 11 (expression -> ( expression ) .)
+    CONCAT          reduce using rule 11 (expression -> ( expression ) .)
+    )               reduce using rule 11 (expression -> ( expression ) .)
+
+
+state 28
 
     (1) statement -> VAR = expression ; .
 
     $end            reduce using rule 1 (statement -> VAR = expression ; .)
 
 
-state 25
+state 29
 
     (3) statement -> ESCREVER ( expression ) . ;
 
-    ;               shift and go to state 27
+    ;               shift and go to state 32
 
 
-state 26
+state 30
 
     (4) statement -> ESCREVER ( STRING ) . ;
 
-    ;               shift and go to state 28
+    ;               shift and go to state 33
 
 
-state 27
+state 31
+
+    (5) statement -> ESCREVER ( VAR ) . ;
+
+    ;               shift and go to state 34
+
+
+state 32
 
     (3) statement -> ESCREVER ( expression ) ; .
 
     $end            reduce using rule 3 (statement -> ESCREVER ( expression ) ; .)
 
 
-state 28
+state 33
 
     (4) statement -> ESCREVER ( STRING ) ; .
 
     $end            reduce using rule 4 (statement -> ESCREVER ( STRING ) ; .)
 
+
+state 34
+
+    (5) statement -> ESCREVER ( VAR ) ; .
+
+    $end            reduce using rule 5 (statement -> ESCREVER ( VAR ) ; .)
+
+WARNING: 
+WARNING: Conflicts:
+WARNING: 
+WARNING: shift/reduce conflict for ) in state 25 resolved as shift
+WARNING: shift/reduce conflict for ) in state 26 resolved as shift

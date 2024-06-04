@@ -1,0 +1,5 @@
+--EKJGSKF--
+
+escola ="EST";
+inst = "IPCA";
+ESCREVER ("Ola, #{escola} #{inst}!");

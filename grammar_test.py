@@ -14,6 +14,11 @@ exemplos = [
     "mult_3! = a1_ * 3 ;",
     "ESCREVER(365 * 2);",
     'ESCREVER("Ola Mundo");',
+    'curso = "ESI";',
+    'ESCREVER("Ola, "<> curso); ',
+    'escola ="EST";',
+    'inst = "IPCA";',
+    'ESCREVER ("Ola, #{escola} #{inst}!");'
 ]
 
 for frase in exemplos:
