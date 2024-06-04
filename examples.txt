@@ -1,5 +1,2 @@
---EKJGSKF--
-
-escola ="EST";
-inst = "IPCA";
-ESCREVER ("Ola, #{escola} #{inst}!");
+lista = [1, 2, 3] ;
+ESCREVER(lista) ;

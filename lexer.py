@@ -1,8 +1,8 @@
 import ply.lex as plex
 
 class ArithLexer:
-    tokens = ("NUM", "VAR", "ESCREVER", "STRING", "CONCAT")
-    literals = ['+', '-', '*', '/', '(', ')', '=', ';']
+    tokens = ("NUM", "VAR", "ESCREVER", "STRING", "CONCAT", "LIST")
+    literals = ['+', '-', '*', '/', '(', ')', '=', ';', '[', ']']
     t_ignore = " \t\n"
 
     def __init__(self):
@@ -32,6 +32,11 @@ class ArithLexer:
         t.type = 'CONCAT'
         return t
     
+    def t_LIST(self, t):
+        r'\[.*?\]'
+        t.value = eval(t.value)  # Converte a string da lista em uma lista real de Python
+        return t
+
     def t_comment_multiline(self, t):
         r'\{\-(.|\n)*?\-\}'
         pass

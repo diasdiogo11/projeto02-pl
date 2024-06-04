@@ -10,7 +10,7 @@ class ArithEval:
         "seq": lambda args: args[-1],  # para sequência de instruções, retorna o último valor
         "atr": lambda args: ArithEval._attrib(args),  # atribuição de valor a uma variável
         "esc": lambda args: print(args[0]),  # função de saída (print)
-        "concat": lambda args: args[0] + args[1],  # concatenação de strings
+        "concat": lambda args: args[0] + args[1],  # concatenação de strings ou listas
     }
 
     @staticmethod
@@ -30,6 +30,8 @@ class ArithEval:
                 return ArithEval._eval_write(ast)
             else:
                 return ArithEval._eval_tuple(ast)
+        if type(ast) is list:
+            return ast
         raise Exception(f"Unknown AST type: {type(ast)}")
 
     @staticmethod
@@ -61,6 +63,8 @@ class ArithEval:
         elif ast[0] == 'var':
             return ArithEval.symbols[ast[1]]
         elif ast[0] == 'string':
+            return ast[1]
+        elif ast[0] == 'list':
             return ast[1]
         raise Exception(f"Unknown AST tuple type: {ast[0]}")
 

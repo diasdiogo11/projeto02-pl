@@ -65,5 +65,9 @@ class ArithGrammar:
         'expression : STRING'
         p[0] = ('string', p[1])
 
+    def p_expression_list(self, p):
+        'expression : LIST'
+        p[0] = ('list', p[1])
+
     def p_error(self, p):
         print(f"Syntax error at '{p.value}'" if p else "Syntax error at end of input")
