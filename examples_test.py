@@ -16,8 +16,12 @@ with open('examples.txt', 'r') as file:
 # Parse e execute o script linha a linha
 for line in script.split('\n'):
     if line.strip():  # Ignora linhas vazias
-        ast = parser.parse(line)
-        if ast:  # Verifica se o AST foi gerado corretamente
-            result = evaluator.evaluate(ast)
-            if result is not None:
-                print(result)
+        try:
+            ast = parser.parse(line)
+            if ast:  # Verifica se o AST foi gerado corretamente
+                result = evaluator.evaluate(ast)
+                if result is not None:
+                    print(result)
+        except Exception as e:
+            print(f"Erro ao processar a linha: {line}")
+            print(e)

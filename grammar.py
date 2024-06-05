@@ -69,5 +69,14 @@ class ArithGrammar:
         'expression : LIST'
         p[0] = ('list', p[1])
 
+    def p_expression_entrada(self, p):
+        'expression : ENTRADA "(" ")"'
+        p[0] = ('entrada',)
+
+    def p_expression_aleatorio(self, p):
+        '''expression : ALEATORIO "(" NUM ")"
+                      | ALEATORIO "(" VAR ")"'''
+        p[0] = ('aleatorio', p[3])
+
     def p_error(self, p):
         print(f"Syntax error at '{p.value}'" if p else "Syntax error at end of input")

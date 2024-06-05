@@ -1,3 +1,5 @@
+import random
+
 class ArithEval:
 
     symbols = {}
@@ -10,7 +12,7 @@ class ArithEval:
         "seq": lambda args: args[-1],  # para sequência de instruções, retorna o último valor
         "atr": lambda args: ArithEval._attrib(args),  # atribuição de valor a uma variável
         "esc": lambda args: print(args[0]),  # função de saída (print)
-        "concat": lambda args: args[0] + args[1],  # concatenação de strings ou listas
+        "concat": lambda args: str(args[0]) + str(args[1]),  # concatenação de strings ou listas
     }
 
     @staticmethod
@@ -18,7 +20,7 @@ class ArithEval:
         value = args[1]
         ArithEval.symbols[args[0]] = value
         return value
-    
+
     @staticmethod
     def evaluate(ast):
         if type(ast) is int:
@@ -41,7 +43,7 @@ class ArithEval:
             expr = ArithEval._interpolate(expr)
         ArithEval.operators['esc']([expr])
         return expr
-        
+
     @staticmethod
     def _eval_tuple(ast):
         if ast[0] == 'assign':
@@ -66,7 +68,20 @@ class ArithEval:
             return ast[1]
         elif ast[0] == 'list':
             return ast[1]
+        elif ast[0] == 'entrada':
+            return ArithEval._eval_entrada()
+        elif ast[0] == 'aleatorio':
+            max_value = ArithEval.evaluate(ast[1])
+            return ArithEval._eval_aleatorio(max_value)
         raise Exception(f"Unknown AST tuple type: {ast[0]}")
+
+    @staticmethod
+    def _eval_entrada():
+        return int(input("Digite um valor: "))
+
+    @staticmethod
+    def _eval_aleatorio(max_value):
+        return random.randint(0, max_value)
 
     @staticmethod
     def _interpolate(string):
