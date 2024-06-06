@@ -83,7 +83,30 @@ class ArithGrammar:
         '''expression : ALEATORIO "(" NUM ")"
                       | ALEATORIO "(" VAR ")"'''
         p[0] = ('aleatorio', p[3])
-        
+
+    def p_expression_function(self, p):
+        'expression : FUNCAO VAR "(" params ")" "," ":" expression ";"'
+        p[0] = ('function', p[2], p[4], p[8])
+
+    def p_params(self, p):
+        '''params : VAR
+                  | VAR "," params'''
+        if len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = [p[1]] + p[3]
+
+    def p_expression_func_call(self, p):
+        'expression : VAR "(" arguments ")"'
+        p[0] = ('func_call', p[1], p[3])
+
+    def p_arguments(self, p):
+        '''arguments : expression
+                     | expression "," arguments'''
+        if len(p) == 2:
+            p[0] = [p[1]]
+        else:
+            p[0] = [p[1]] + p[3]
 
     def p_error(self, p):
         print(f"Syntax error at '{p.value}'" if p else "Syntax error at end of input")

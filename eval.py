@@ -3,6 +3,7 @@ import random
 class ArithEval:
 
     symbols = {}
+    functions = {}
 
     operators = {
         "+": lambda args: args[0] + args[1],
@@ -30,6 +31,10 @@ class ArithEval:
         if type(ast) is tuple:
             if ast[0] == 'write':
                 return ArithEval._eval_write(ast)
+            elif ast[0] == 'function':
+                return ArithEval._eval_function(ast)
+            elif ast[0] == 'func_call':
+                return ArithEval._eval_func_call(ast)
             else:
                 return ArithEval._eval_tuple(ast)
         if type(ast) is list:
@@ -40,7 +45,6 @@ class ArithEval:
     def _eval_write(ast):
         expr = ArithEval.evaluate(ast[1])
         if isinstance(expr, list):
-            # Converte a lista em uma string formatada
             expr_str = "[" + ", ".join(map(str, expr)) + "]"
             ArithEval.operators['esc']([expr_str])
             return expr_str
@@ -79,6 +83,34 @@ class ArithEval:
             max_value = ArithEval.evaluate(ast[1])
             return ArithEval._eval_aleatorio(max_value)
         raise Exception(f"Unknown AST tuple type: {ast[0]}")
+
+    @staticmethod
+    def _eval_function(ast):
+        func_name = ast[1]
+        params = ast[2]
+        body = ast[3]
+        ArithEval.functions[func_name] = (params, body)
+        return func_name
+
+    @staticmethod
+    def _eval_func_call(ast):
+        func_name = ast[1]
+        args = [ArithEval.evaluate(arg) for arg in ast[2]]
+        if func_name not in ArithEval.functions:
+            raise Exception(f"Function '{func_name}' not defined")
+        params, body = ArithEval.functions[func_name]
+        if len(params) != len(args):
+            raise Exception(f"Function '{func_name}' expected {len(params)} arguments but got {len(args)}")
+        # Salvar o estado atual das variáveis
+        old_symbols = ArithEval.symbols.copy()
+        # Atribuir os valores dos argumentos aos parâmetros da função
+        for param, arg in zip(params, args):
+            ArithEval.symbols[param] = arg
+        # Avaliar o corpo da função
+        result = ArithEval.evaluate(body)
+        # Restaurar o estado das variáveis
+        ArithEval.symbols = old_symbols
+        return result
 
     @staticmethod
     def _eval_entrada():

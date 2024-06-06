@@ -8,7 +8,7 @@ ag = ArithGrammar()
 ag.build()
 
 exemplos = [
-    'lista =[1,2,3] ;'
+    'FUNCAO soma(a,b),: a+b ;'
 ]
 
 for frase in exemplos:
