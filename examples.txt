@@ -1,4 +1,0 @@
-FUNCAO soma(a,b),: a*b ;
-seis = soma(4,2);
-ESCREVER(seis);
-

@@ -1,7 +1,7 @@
 import ply.lex as plex
 
 class ArithLexer:
-    tokens = ("NUM", "VAR", "ESCREVER", "STRING", "CONCAT", "LIST", "ENTRADA", "ALEATORIO", "FUNCAO", "FIM", "FOLD", "MAP")
+    tokens = ("NUM", "VAR", "ESCREVER", "STRING", "CONCAT", "LIST", "ENTRADA", "ALEATORIO", "FUNCAO", "FIM", "FOLD", "MAP", "NEG")
     literals = ['+', '-', '*', '/', '(', ')', '=', ';', '[', ']', ',', ':']
     t_ignore = " \t\n"
 
@@ -65,6 +65,10 @@ class ArithLexer:
     
     def t_FIM(self, t):
         r"FIM"
+        return t
+    
+    def t_NEG(self, t):
+        r"NEG"
         return t
 
     def t_error(self, t):

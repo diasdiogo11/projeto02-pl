@@ -1,0 +1,2 @@
+FUNCAO soma(a,b),: a+b ;
+teste = soma(2,5);

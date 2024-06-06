@@ -1,0 +1,2 @@
+FUNCAO area(a,b),: a*b ;
+d = area(10, 20);

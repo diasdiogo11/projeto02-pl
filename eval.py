@@ -35,6 +35,8 @@ class ArithEval:
                 return ArithEval._eval_function(ast)
             elif ast[0] == 'func_call':
                 return ArithEval._eval_func_call(ast)
+            elif ast[0] == 'neg':
+                return -ArithEval.evaluate(ast[1])
             else:
                 return ArithEval._eval_tuple(ast)
         if type(ast) is list:

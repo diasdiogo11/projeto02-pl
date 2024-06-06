@@ -108,5 +108,12 @@ class ArithGrammar:
         else:
             p[0] = [p[1]] + p[3]
 
+    def p_expression_neg(self, p):
+        '''expression : NEG "(" expression ")" ";"
+                    | NEG "(" VAR ")" ";"
+                    | NEG "(" NUM ")" ";"'''
+        p[0] = ('neg', p[3])
+
+
     def p_error(self, p):
         print(f"Syntax error at '{p.value}'" if p else "Syntax error at end of input")
