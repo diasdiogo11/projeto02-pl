@@ -1,117 +1,129 @@
 Created by PLY version 3.11 (http://www.dabeaz.com/ply)
 
+Unused terminals:
+
+    FIM
+    FOLD
+    FUNCAO
+    MAP
+
 Grammar
 
-Rule 0     S' -> statement
-Rule 1     statement -> VAR = expression ;
-Rule 2     statement -> expression ;
-Rule 3     statement -> ESCREVER ( expression ) ;
-Rule 4     statement -> ESCREVER ( STRING ) ;
-Rule 5     statement -> ESCREVER ( VAR ) ;
-Rule 6     expression -> expression + expression
-Rule 7     expression -> expression - expression
-Rule 8     expression -> expression * expression
-Rule 9     expression -> expression / expression
-Rule 10    expression -> expression CONCAT expression
-Rule 11    expression -> ( expression )
-Rule 12    expression -> NUM
-Rule 13    expression -> VAR
-Rule 14    expression -> STRING
-Rule 15    expression -> LIST
-Rule 16    expression -> ENTRADA ( )
-Rule 17    expression -> ALEATORIO ( NUM )
-Rule 18    expression -> ALEATORIO ( VAR )
+Rule 0     S' -> start
+Rule 1     start -> statement
+Rule 2     start -> expression
+Rule 3     statement -> VAR = expression ;
+Rule 4     statement -> expression ;
+Rule 5     statement -> ESCREVER ( expression ) ;
+Rule 6     statement -> ESCREVER ( STRING ) ;
+Rule 7     statement -> ESCREVER ( VAR ) ;
+Rule 8     expression -> expression + expression
+Rule 9     expression -> expression - expression
+Rule 10    expression -> expression * expression
+Rule 11    expression -> expression / expression
+Rule 12    expression -> expression CONCAT expression
+Rule 13    expression -> ( expression )
+Rule 14    expression -> NUM
+Rule 15    expression -> VAR
+Rule 16    expression -> STRING
+Rule 17    expression -> LIST
+Rule 18    expression -> ENTRADA ( )
+Rule 19    expression -> ALEATORIO ( NUM )
+Rule 20    expression -> ALEATORIO ( VAR )
 
 Terminals, with rules where they appear
 
-(                    : 3 4 5 11 16 17 18
-)                    : 3 4 5 11 16 17 18
-*                    : 8
-+                    : 6
--                    : 7
-/                    : 9
-;                    : 1 2 3 4 5
-=                    : 1
-ALEATORIO            : 17 18
-CONCAT               : 10
-ENTRADA              : 16
-ESCREVER             : 3 4 5
-LIST                 : 15
-NUM                  : 12 17
-STRING               : 4 14
-VAR                  : 1 5 13 18
+(                    : 5 6 7 13 18 19 20
+)                    : 5 6 7 13 18 19 20
+*                    : 10
++                    : 8
+-                    : 9
+/                    : 11
+;                    : 3 4 5 6 7
+=                    : 3
+ALEATORIO            : 19 20
+CONCAT               : 12
+ENTRADA              : 18
+ESCREVER             : 5 6 7
+FIM                  : 
+FOLD                 : 
+FUNCAO               : 
+LIST                 : 17
+MAP                  : 
+NUM                  : 14 19
+STRING               : 6 16
+VAR                  : 3 7 15 20
 error                : 
 
 Nonterminals, with rules where they appear
 
-expression           : 1 2 3 6 6 7 7 8 8 9 9 10 10 11
-statement            : 0
+expression           : 2 3 4 5 8 8 9 9 10 10 11 11 12 12 13
+start                : 0
+statement            : 1
 
 Parsing method: LALR
 
 state 0
 
-    (0) S' -> . statement
-    (1) statement -> . VAR = expression ;
-    (2) statement -> . expression ;
-    (3) statement -> . ESCREVER ( expression ) ;
-    (4) statement -> . ESCREVER ( STRING ) ;
-    (5) statement -> . ESCREVER ( VAR ) ;
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (0) S' -> . start
+    (1) start -> . statement
+    (2) start -> . expression
+    (3) statement -> . VAR = expression ;
+    (4) statement -> . expression ;
+    (5) statement -> . ESCREVER ( expression ) ;
+    (6) statement -> . ESCREVER ( STRING ) ;
+    (7) statement -> . ESCREVER ( VAR ) ;
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    VAR             shift and go to state 2
-    ESCREVER        shift and go to state 4
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    VAR             shift and go to state 4
+    ESCREVER        shift and go to state 5
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
-    statement                      shift and go to state 1
+    start                          shift and go to state 1
+    statement                      shift and go to state 2
     expression                     shift and go to state 3
 
 state 1
 
-    (0) S' -> statement .
+    (0) S' -> start .
 
 
 
 state 2
 
-    (1) statement -> VAR . = expression ;
-    (13) expression -> VAR .
+    (1) start -> statement .
 
-    =               shift and go to state 11
-    ;               reduce using rule 13 (expression -> VAR .)
-    +               reduce using rule 13 (expression -> VAR .)
-    -               reduce using rule 13 (expression -> VAR .)
-    *               reduce using rule 13 (expression -> VAR .)
-    /               reduce using rule 13 (expression -> VAR .)
-    CONCAT          reduce using rule 13 (expression -> VAR .)
+    $end            reduce using rule 1 (start -> statement .)
 
 
 state 3
 
-    (2) statement -> expression . ;
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (2) start -> expression .
+    (4) statement -> expression . ;
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
+    $end            reduce using rule 2 (start -> expression .)
     ;               shift and go to state 12
     +               shift and go to state 13
     -               shift and go to state 14
@@ -122,374 +134,377 @@ state 3
 
 state 4
 
-    (3) statement -> ESCREVER . ( expression ) ;
-    (4) statement -> ESCREVER . ( STRING ) ;
-    (5) statement -> ESCREVER . ( VAR ) ;
+    (3) statement -> VAR . = expression ;
+    (15) expression -> VAR .
 
-    (               shift and go to state 18
+    =               shift and go to state 18
+    ;               reduce using rule 15 (expression -> VAR .)
+    +               reduce using rule 15 (expression -> VAR .)
+    -               reduce using rule 15 (expression -> VAR .)
+    *               reduce using rule 15 (expression -> VAR .)
+    /               reduce using rule 15 (expression -> VAR .)
+    CONCAT          reduce using rule 15 (expression -> VAR .)
+    $end            reduce using rule 15 (expression -> VAR .)
 
 
 state 5
 
-    (11) expression -> ( . expression )
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (5) statement -> ESCREVER . ( expression ) ;
+    (6) statement -> ESCREVER . ( STRING ) ;
+    (7) statement -> ESCREVER . ( VAR ) ;
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 19
 
-    expression                     shift and go to state 19
 
 state 6
 
-    (14) expression -> STRING .
+    (13) expression -> ( . expression )
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    ;               reduce using rule 14 (expression -> STRING .)
-    +               reduce using rule 14 (expression -> STRING .)
-    -               reduce using rule 14 (expression -> STRING .)
-    *               reduce using rule 14 (expression -> STRING .)
-    /               reduce using rule 14 (expression -> STRING .)
-    CONCAT          reduce using rule 14 (expression -> STRING .)
-    )               reduce using rule 14 (expression -> STRING .)
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
+    expression                     shift and go to state 20
 
 state 7
 
-    (12) expression -> NUM .
+    (16) expression -> STRING .
 
-    ;               reduce using rule 12 (expression -> NUM .)
-    +               reduce using rule 12 (expression -> NUM .)
-    -               reduce using rule 12 (expression -> NUM .)
-    *               reduce using rule 12 (expression -> NUM .)
-    /               reduce using rule 12 (expression -> NUM .)
-    CONCAT          reduce using rule 12 (expression -> NUM .)
-    )               reduce using rule 12 (expression -> NUM .)
+    ;               reduce using rule 16 (expression -> STRING .)
+    +               reduce using rule 16 (expression -> STRING .)
+    -               reduce using rule 16 (expression -> STRING .)
+    *               reduce using rule 16 (expression -> STRING .)
+    /               reduce using rule 16 (expression -> STRING .)
+    CONCAT          reduce using rule 16 (expression -> STRING .)
+    $end            reduce using rule 16 (expression -> STRING .)
+    )               reduce using rule 16 (expression -> STRING .)
 
 
 state 8
 
-    (15) expression -> LIST .
+    (14) expression -> NUM .
 
-    ;               reduce using rule 15 (expression -> LIST .)
-    +               reduce using rule 15 (expression -> LIST .)
-    -               reduce using rule 15 (expression -> LIST .)
-    *               reduce using rule 15 (expression -> LIST .)
-    /               reduce using rule 15 (expression -> LIST .)
-    CONCAT          reduce using rule 15 (expression -> LIST .)
-    )               reduce using rule 15 (expression -> LIST .)
+    ;               reduce using rule 14 (expression -> NUM .)
+    +               reduce using rule 14 (expression -> NUM .)
+    -               reduce using rule 14 (expression -> NUM .)
+    *               reduce using rule 14 (expression -> NUM .)
+    /               reduce using rule 14 (expression -> NUM .)
+    CONCAT          reduce using rule 14 (expression -> NUM .)
+    $end            reduce using rule 14 (expression -> NUM .)
+    )               reduce using rule 14 (expression -> NUM .)
 
 
 state 9
 
-    (16) expression -> ENTRADA . ( )
+    (17) expression -> LIST .
 
-    (               shift and go to state 21
+    ;               reduce using rule 17 (expression -> LIST .)
+    +               reduce using rule 17 (expression -> LIST .)
+    -               reduce using rule 17 (expression -> LIST .)
+    *               reduce using rule 17 (expression -> LIST .)
+    /               reduce using rule 17 (expression -> LIST .)
+    CONCAT          reduce using rule 17 (expression -> LIST .)
+    $end            reduce using rule 17 (expression -> LIST .)
+    )               reduce using rule 17 (expression -> LIST .)
 
 
 state 10
 
-    (17) expression -> ALEATORIO . ( NUM )
-    (18) expression -> ALEATORIO . ( VAR )
+    (18) expression -> ENTRADA . ( )
 
     (               shift and go to state 22
 
 
 state 11
 
-    (1) statement -> VAR = . expression ;
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (19) expression -> ALEATORIO . ( NUM )
+    (20) expression -> ALEATORIO . ( VAR )
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 23
 
-    expression                     shift and go to state 23
 
 state 12
 
-    (2) statement -> expression ; .
+    (4) statement -> expression ; .
 
-    $end            reduce using rule 2 (statement -> expression ; .)
+    $end            reduce using rule 4 (statement -> expression ; .)
 
 
 state 13
 
-    (6) expression -> expression + . expression
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (8) expression -> expression + . expression
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
     expression                     shift and go to state 24
 
 state 14
 
-    (7) expression -> expression - . expression
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (9) expression -> expression - . expression
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
     expression                     shift and go to state 25
 
 state 15
 
-    (8) expression -> expression * . expression
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (10) expression -> expression * . expression
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
     expression                     shift and go to state 26
 
 state 16
 
-    (9) expression -> expression / . expression
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (11) expression -> expression / . expression
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
     expression                     shift and go to state 27
 
 state 17
 
-    (10) expression -> expression CONCAT . expression
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (12) expression -> expression CONCAT . expression
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    VAR             shift and go to state 20
-    STRING          shift and go to state 6
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
     expression                     shift and go to state 28
 
 state 18
 
-    (3) statement -> ESCREVER ( . expression ) ;
-    (4) statement -> ESCREVER ( . STRING ) ;
-    (5) statement -> ESCREVER ( . VAR ) ;
-    (6) expression -> . expression + expression
-    (7) expression -> . expression - expression
-    (8) expression -> . expression * expression
-    (9) expression -> . expression / expression
-    (10) expression -> . expression CONCAT expression
-    (11) expression -> . ( expression )
-    (12) expression -> . NUM
-    (13) expression -> . VAR
-    (14) expression -> . STRING
-    (15) expression -> . LIST
-    (16) expression -> . ENTRADA ( )
-    (17) expression -> . ALEATORIO ( NUM )
-    (18) expression -> . ALEATORIO ( VAR )
+    (3) statement -> VAR = . expression ;
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    STRING          shift and go to state 30
-    VAR             shift and go to state 31
-    (               shift and go to state 5
-    NUM             shift and go to state 7
-    LIST            shift and go to state 8
-    ENTRADA         shift and go to state 9
-    ALEATORIO       shift and go to state 10
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    VAR             shift and go to state 21
+    STRING          shift and go to state 7
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
 
     expression                     shift and go to state 29
 
 state 19
 
-    (11) expression -> ( expression . )
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (5) statement -> ESCREVER ( . expression ) ;
+    (6) statement -> ESCREVER ( . STRING ) ;
+    (7) statement -> ESCREVER ( . VAR ) ;
+    (8) expression -> . expression + expression
+    (9) expression -> . expression - expression
+    (10) expression -> . expression * expression
+    (11) expression -> . expression / expression
+    (12) expression -> . expression CONCAT expression
+    (13) expression -> . ( expression )
+    (14) expression -> . NUM
+    (15) expression -> . VAR
+    (16) expression -> . STRING
+    (17) expression -> . LIST
+    (18) expression -> . ENTRADA ( )
+    (19) expression -> . ALEATORIO ( NUM )
+    (20) expression -> . ALEATORIO ( VAR )
 
-    )               shift and go to state 32
+    STRING          shift and go to state 31
+    VAR             shift and go to state 32
+    (               shift and go to state 6
+    NUM             shift and go to state 8
+    LIST            shift and go to state 9
+    ENTRADA         shift and go to state 10
+    ALEATORIO       shift and go to state 11
+
+    expression                     shift and go to state 30
+
+state 20
+
+    (13) expression -> ( expression . )
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
+
+    )               shift and go to state 33
     +               shift and go to state 13
     -               shift and go to state 14
     *               shift and go to state 15
     /               shift and go to state 16
     CONCAT          shift and go to state 17
-
-
-state 20
-
-    (13) expression -> VAR .
-
-    )               reduce using rule 13 (expression -> VAR .)
-    +               reduce using rule 13 (expression -> VAR .)
-    -               reduce using rule 13 (expression -> VAR .)
-    *               reduce using rule 13 (expression -> VAR .)
-    /               reduce using rule 13 (expression -> VAR .)
-    CONCAT          reduce using rule 13 (expression -> VAR .)
-    ;               reduce using rule 13 (expression -> VAR .)
 
 
 state 21
 
-    (16) expression -> ENTRADA ( . )
+    (15) expression -> VAR .
 
-    )               shift and go to state 33
+    )               reduce using rule 15 (expression -> VAR .)
+    +               reduce using rule 15 (expression -> VAR .)
+    -               reduce using rule 15 (expression -> VAR .)
+    *               reduce using rule 15 (expression -> VAR .)
+    /               reduce using rule 15 (expression -> VAR .)
+    CONCAT          reduce using rule 15 (expression -> VAR .)
+    ;               reduce using rule 15 (expression -> VAR .)
+    $end            reduce using rule 15 (expression -> VAR .)
 
 
 state 22
 
-    (17) expression -> ALEATORIO ( . NUM )
-    (18) expression -> ALEATORIO ( . VAR )
+    (18) expression -> ENTRADA ( . )
 
-    NUM             shift and go to state 34
-    VAR             shift and go to state 35
+    )               shift and go to state 34
 
 
 state 23
 
-    (1) statement -> VAR = expression . ;
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (19) expression -> ALEATORIO ( . NUM )
+    (20) expression -> ALEATORIO ( . VAR )
 
-    ;               shift and go to state 36
-    +               shift and go to state 13
-    -               shift and go to state 14
-    *               shift and go to state 15
-    /               shift and go to state 16
-    CONCAT          shift and go to state 17
+    NUM             shift and go to state 35
+    VAR             shift and go to state 36
 
 
 state 24
 
-    (6) expression -> expression + expression .
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (8) expression -> expression + expression .
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 6 (expression -> expression + expression .)
-    +               reduce using rule 6 (expression -> expression + expression .)
-    -               reduce using rule 6 (expression -> expression + expression .)
-    CONCAT          reduce using rule 6 (expression -> expression + expression .)
-    )               reduce using rule 6 (expression -> expression + expression .)
+    ;               reduce using rule 8 (expression -> expression + expression .)
+    +               reduce using rule 8 (expression -> expression + expression .)
+    -               reduce using rule 8 (expression -> expression + expression .)
+    CONCAT          reduce using rule 8 (expression -> expression + expression .)
+    $end            reduce using rule 8 (expression -> expression + expression .)
+    )               reduce using rule 8 (expression -> expression + expression .)
     *               shift and go to state 15
     /               shift and go to state 16
 
-  ! *               [ reduce using rule 6 (expression -> expression + expression .) ]
-  ! /               [ reduce using rule 6 (expression -> expression + expression .) ]
+  ! *               [ reduce using rule 8 (expression -> expression + expression .) ]
+  ! /               [ reduce using rule 8 (expression -> expression + expression .) ]
   ! +               [ shift and go to state 13 ]
   ! -               [ shift and go to state 14 ]
   ! CONCAT          [ shift and go to state 17 ]
@@ -497,23 +512,24 @@ state 24
 
 state 25
 
-    (7) expression -> expression - expression .
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (9) expression -> expression - expression .
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 7 (expression -> expression - expression .)
-    +               reduce using rule 7 (expression -> expression - expression .)
-    -               reduce using rule 7 (expression -> expression - expression .)
-    CONCAT          reduce using rule 7 (expression -> expression - expression .)
-    )               reduce using rule 7 (expression -> expression - expression .)
+    ;               reduce using rule 9 (expression -> expression - expression .)
+    +               reduce using rule 9 (expression -> expression - expression .)
+    -               reduce using rule 9 (expression -> expression - expression .)
+    CONCAT          reduce using rule 9 (expression -> expression - expression .)
+    $end            reduce using rule 9 (expression -> expression - expression .)
+    )               reduce using rule 9 (expression -> expression - expression .)
     *               shift and go to state 15
     /               shift and go to state 16
 
-  ! *               [ reduce using rule 7 (expression -> expression - expression .) ]
-  ! /               [ reduce using rule 7 (expression -> expression - expression .) ]
+  ! *               [ reduce using rule 9 (expression -> expression - expression .) ]
+  ! /               [ reduce using rule 9 (expression -> expression - expression .) ]
   ! +               [ shift and go to state 13 ]
   ! -               [ shift and go to state 14 ]
   ! CONCAT          [ shift and go to state 17 ]
@@ -521,20 +537,21 @@ state 25
 
 state 26
 
-    (8) expression -> expression * expression .
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (10) expression -> expression * expression .
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 8 (expression -> expression * expression .)
-    +               reduce using rule 8 (expression -> expression * expression .)
-    -               reduce using rule 8 (expression -> expression * expression .)
-    *               reduce using rule 8 (expression -> expression * expression .)
-    /               reduce using rule 8 (expression -> expression * expression .)
-    CONCAT          reduce using rule 8 (expression -> expression * expression .)
-    )               reduce using rule 8 (expression -> expression * expression .)
+    ;               reduce using rule 10 (expression -> expression * expression .)
+    +               reduce using rule 10 (expression -> expression * expression .)
+    -               reduce using rule 10 (expression -> expression * expression .)
+    *               reduce using rule 10 (expression -> expression * expression .)
+    /               reduce using rule 10 (expression -> expression * expression .)
+    CONCAT          reduce using rule 10 (expression -> expression * expression .)
+    $end            reduce using rule 10 (expression -> expression * expression .)
+    )               reduce using rule 10 (expression -> expression * expression .)
 
   ! +               [ shift and go to state 13 ]
   ! -               [ shift and go to state 14 ]
@@ -545,20 +562,21 @@ state 26
 
 state 27
 
-    (9) expression -> expression / expression .
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (11) expression -> expression / expression .
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 9 (expression -> expression / expression .)
-    +               reduce using rule 9 (expression -> expression / expression .)
-    -               reduce using rule 9 (expression -> expression / expression .)
-    *               reduce using rule 9 (expression -> expression / expression .)
-    /               reduce using rule 9 (expression -> expression / expression .)
-    CONCAT          reduce using rule 9 (expression -> expression / expression .)
-    )               reduce using rule 9 (expression -> expression / expression .)
+    ;               reduce using rule 11 (expression -> expression / expression .)
+    +               reduce using rule 11 (expression -> expression / expression .)
+    -               reduce using rule 11 (expression -> expression / expression .)
+    *               reduce using rule 11 (expression -> expression / expression .)
+    /               reduce using rule 11 (expression -> expression / expression .)
+    CONCAT          reduce using rule 11 (expression -> expression / expression .)
+    $end            reduce using rule 11 (expression -> expression / expression .)
+    )               reduce using rule 11 (expression -> expression / expression .)
 
   ! +               [ shift and go to state 13 ]
   ! -               [ shift and go to state 14 ]
@@ -569,23 +587,24 @@ state 27
 
 state 28
 
-    (10) expression -> expression CONCAT expression .
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (12) expression -> expression CONCAT expression .
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-    ;               reduce using rule 10 (expression -> expression CONCAT expression .)
-    +               reduce using rule 10 (expression -> expression CONCAT expression .)
-    -               reduce using rule 10 (expression -> expression CONCAT expression .)
-    CONCAT          reduce using rule 10 (expression -> expression CONCAT expression .)
-    )               reduce using rule 10 (expression -> expression CONCAT expression .)
+    ;               reduce using rule 12 (expression -> expression CONCAT expression .)
+    +               reduce using rule 12 (expression -> expression CONCAT expression .)
+    -               reduce using rule 12 (expression -> expression CONCAT expression .)
+    CONCAT          reduce using rule 12 (expression -> expression CONCAT expression .)
+    $end            reduce using rule 12 (expression -> expression CONCAT expression .)
+    )               reduce using rule 12 (expression -> expression CONCAT expression .)
     *               shift and go to state 15
     /               shift and go to state 16
 
-  ! *               [ reduce using rule 10 (expression -> expression CONCAT expression .) ]
-  ! /               [ reduce using rule 10 (expression -> expression CONCAT expression .) ]
+  ! *               [ reduce using rule 12 (expression -> expression CONCAT expression .) ]
+  ! /               [ reduce using rule 12 (expression -> expression CONCAT expression .) ]
   ! +               [ shift and go to state 13 ]
   ! -               [ shift and go to state 14 ]
   ! CONCAT          [ shift and go to state 17 ]
@@ -593,14 +612,14 @@ state 28
 
 state 29
 
-    (3) statement -> ESCREVER ( expression . ) ;
-    (6) expression -> expression . + expression
-    (7) expression -> expression . - expression
-    (8) expression -> expression . * expression
-    (9) expression -> expression . / expression
-    (10) expression -> expression . CONCAT expression
+    (3) statement -> VAR = expression . ;
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-    )               shift and go to state 37
+    ;               shift and go to state 37
     +               shift and go to state 13
     -               shift and go to state 14
     *               shift and go to state 15
@@ -610,152 +629,173 @@ state 29
 
 state 30
 
-    (4) statement -> ESCREVER ( STRING . ) ;
-    (14) expression -> STRING .
+    (5) statement -> ESCREVER ( expression . ) ;
+    (8) expression -> expression . + expression
+    (9) expression -> expression . - expression
+    (10) expression -> expression . * expression
+    (11) expression -> expression . / expression
+    (12) expression -> expression . CONCAT expression
 
-  ! shift/reduce conflict for ) resolved as shift
     )               shift and go to state 38
-    +               reduce using rule 14 (expression -> STRING .)
-    -               reduce using rule 14 (expression -> STRING .)
-    *               reduce using rule 14 (expression -> STRING .)
-    /               reduce using rule 14 (expression -> STRING .)
-    CONCAT          reduce using rule 14 (expression -> STRING .)
-
-  ! )               [ reduce using rule 14 (expression -> STRING .) ]
+    +               shift and go to state 13
+    -               shift and go to state 14
+    *               shift and go to state 15
+    /               shift and go to state 16
+    CONCAT          shift and go to state 17
 
 
 state 31
 
-    (5) statement -> ESCREVER ( VAR . ) ;
-    (13) expression -> VAR .
+    (6) statement -> ESCREVER ( STRING . ) ;
+    (16) expression -> STRING .
 
   ! shift/reduce conflict for ) resolved as shift
     )               shift and go to state 39
-    +               reduce using rule 13 (expression -> VAR .)
-    -               reduce using rule 13 (expression -> VAR .)
-    *               reduce using rule 13 (expression -> VAR .)
-    /               reduce using rule 13 (expression -> VAR .)
-    CONCAT          reduce using rule 13 (expression -> VAR .)
+    +               reduce using rule 16 (expression -> STRING .)
+    -               reduce using rule 16 (expression -> STRING .)
+    *               reduce using rule 16 (expression -> STRING .)
+    /               reduce using rule 16 (expression -> STRING .)
+    CONCAT          reduce using rule 16 (expression -> STRING .)
 
-  ! )               [ reduce using rule 13 (expression -> VAR .) ]
+  ! )               [ reduce using rule 16 (expression -> STRING .) ]
 
 
 state 32
 
-    (11) expression -> ( expression ) .
+    (7) statement -> ESCREVER ( VAR . ) ;
+    (15) expression -> VAR .
 
-    ;               reduce using rule 11 (expression -> ( expression ) .)
-    +               reduce using rule 11 (expression -> ( expression ) .)
-    -               reduce using rule 11 (expression -> ( expression ) .)
-    *               reduce using rule 11 (expression -> ( expression ) .)
-    /               reduce using rule 11 (expression -> ( expression ) .)
-    CONCAT          reduce using rule 11 (expression -> ( expression ) .)
-    )               reduce using rule 11 (expression -> ( expression ) .)
+  ! shift/reduce conflict for ) resolved as shift
+    )               shift and go to state 40
+    +               reduce using rule 15 (expression -> VAR .)
+    -               reduce using rule 15 (expression -> VAR .)
+    *               reduce using rule 15 (expression -> VAR .)
+    /               reduce using rule 15 (expression -> VAR .)
+    CONCAT          reduce using rule 15 (expression -> VAR .)
+
+  ! )               [ reduce using rule 15 (expression -> VAR .) ]
 
 
 state 33
 
-    (16) expression -> ENTRADA ( ) .
+    (13) expression -> ( expression ) .
 
-    ;               reduce using rule 16 (expression -> ENTRADA ( ) .)
-    +               reduce using rule 16 (expression -> ENTRADA ( ) .)
-    -               reduce using rule 16 (expression -> ENTRADA ( ) .)
-    *               reduce using rule 16 (expression -> ENTRADA ( ) .)
-    /               reduce using rule 16 (expression -> ENTRADA ( ) .)
-    CONCAT          reduce using rule 16 (expression -> ENTRADA ( ) .)
-    )               reduce using rule 16 (expression -> ENTRADA ( ) .)
+    ;               reduce using rule 13 (expression -> ( expression ) .)
+    +               reduce using rule 13 (expression -> ( expression ) .)
+    -               reduce using rule 13 (expression -> ( expression ) .)
+    *               reduce using rule 13 (expression -> ( expression ) .)
+    /               reduce using rule 13 (expression -> ( expression ) .)
+    CONCAT          reduce using rule 13 (expression -> ( expression ) .)
+    $end            reduce using rule 13 (expression -> ( expression ) .)
+    )               reduce using rule 13 (expression -> ( expression ) .)
 
 
 state 34
 
-    (17) expression -> ALEATORIO ( NUM . )
+    (18) expression -> ENTRADA ( ) .
 
-    )               shift and go to state 40
+    ;               reduce using rule 18 (expression -> ENTRADA ( ) .)
+    +               reduce using rule 18 (expression -> ENTRADA ( ) .)
+    -               reduce using rule 18 (expression -> ENTRADA ( ) .)
+    *               reduce using rule 18 (expression -> ENTRADA ( ) .)
+    /               reduce using rule 18 (expression -> ENTRADA ( ) .)
+    CONCAT          reduce using rule 18 (expression -> ENTRADA ( ) .)
+    $end            reduce using rule 18 (expression -> ENTRADA ( ) .)
+    )               reduce using rule 18 (expression -> ENTRADA ( ) .)
 
 
 state 35
 
-    (18) expression -> ALEATORIO ( VAR . )
+    (19) expression -> ALEATORIO ( NUM . )
 
     )               shift and go to state 41
 
 
 state 36
 
-    (1) statement -> VAR = expression ; .
+    (20) expression -> ALEATORIO ( VAR . )
 
-    $end            reduce using rule 1 (statement -> VAR = expression ; .)
+    )               shift and go to state 42
 
 
 state 37
 
-    (3) statement -> ESCREVER ( expression ) . ;
+    (3) statement -> VAR = expression ; .
 
-    ;               shift and go to state 42
+    $end            reduce using rule 3 (statement -> VAR = expression ; .)
 
 
 state 38
 
-    (4) statement -> ESCREVER ( STRING ) . ;
+    (5) statement -> ESCREVER ( expression ) . ;
 
     ;               shift and go to state 43
 
 
 state 39
 
-    (5) statement -> ESCREVER ( VAR ) . ;
+    (6) statement -> ESCREVER ( STRING ) . ;
 
     ;               shift and go to state 44
 
 
 state 40
 
-    (17) expression -> ALEATORIO ( NUM ) .
+    (7) statement -> ESCREVER ( VAR ) . ;
 
-    ;               reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
-    +               reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
-    -               reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
-    *               reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
-    /               reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
-    CONCAT          reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
-    )               reduce using rule 17 (expression -> ALEATORIO ( NUM ) .)
+    ;               shift and go to state 45
 
 
 state 41
 
-    (18) expression -> ALEATORIO ( VAR ) .
+    (19) expression -> ALEATORIO ( NUM ) .
 
-    ;               reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
-    +               reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
-    -               reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
-    *               reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
-    /               reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
-    CONCAT          reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
-    )               reduce using rule 18 (expression -> ALEATORIO ( VAR ) .)
+    ;               reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    +               reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    -               reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    *               reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    /               reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    CONCAT          reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    $end            reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
+    )               reduce using rule 19 (expression -> ALEATORIO ( NUM ) .)
 
 
 state 42
 
-    (3) statement -> ESCREVER ( expression ) ; .
+    (20) expression -> ALEATORIO ( VAR ) .
 
-    $end            reduce using rule 3 (statement -> ESCREVER ( expression ) ; .)
+    ;               reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    +               reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    -               reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    *               reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    /               reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    CONCAT          reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    $end            reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
+    )               reduce using rule 20 (expression -> ALEATORIO ( VAR ) .)
 
 
 state 43
 
-    (4) statement -> ESCREVER ( STRING ) ; .
+    (5) statement -> ESCREVER ( expression ) ; .
 
-    $end            reduce using rule 4 (statement -> ESCREVER ( STRING ) ; .)
+    $end            reduce using rule 5 (statement -> ESCREVER ( expression ) ; .)
 
 
 state 44
 
-    (5) statement -> ESCREVER ( VAR ) ; .
+    (6) statement -> ESCREVER ( STRING ) ; .
 
-    $end            reduce using rule 5 (statement -> ESCREVER ( VAR ) ; .)
+    $end            reduce using rule 6 (statement -> ESCREVER ( STRING ) ; .)
+
+
+state 45
+
+    (7) statement -> ESCREVER ( VAR ) ; .
+
+    $end            reduce using rule 7 (statement -> ESCREVER ( VAR ) ; .)
 
 WARNING: 
 WARNING: Conflicts:
 WARNING: 
-WARNING: shift/reduce conflict for ) in state 30 resolved as shift
 WARNING: shift/reduce conflict for ) in state 31 resolved as shift
+WARNING: shift/reduce conflict for ) in state 32 resolved as shift

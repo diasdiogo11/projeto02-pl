@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'left+-CONCATleft*/ALEATORIO CONCAT ENTRADA ESCREVER LIST NUM STRING VARstatement : VAR "=" expression ";"statement : expression ";"statement : ESCREVER "(" expression ")" ";"\n                     | ESCREVER "(" STRING ")" ";"\n                     | ESCREVER "(" VAR ")" ";"expression : expression \'+\' expression\n                      | expression \'-\' expression\n                      | expression \'*\' expression\n                      | expression \'/\' expressionexpression : expression CONCAT expressionexpression : "(" expression ")"expression : NUMexpression : VARexpression : STRINGexpression : LISTexpression : ENTRADA "(" ")"expression : ALEATORIO "(" NUM ")"\n                      | ALEATORIO "(" VAR ")"'
+_lr_signature = 'left+-CONCATleft*/ALEATORIO CONCAT ENTRADA ESCREVER FIM FOLD FUNCAO LIST MAP NUM STRING VARstart : statement\n                 | expressionstatement : VAR "=" expression ";"statement : expression ";"statement : ESCREVER "(" expression ")" ";"\n                     | ESCREVER "(" STRING ")" ";"\n                     | ESCREVER "(" VAR ")" ";"expression : expression \'+\' expression\n                      | expression \'-\' expression\n                      | expression \'*\' expression\n                      | expression \'/\' expressionexpression : expression CONCAT expressionexpression : "(" expression ")"expression : NUMexpression : VARexpression : STRINGexpression : LISTexpression : ENTRADA "(" ")"expression : ALEATORIO "(" NUM ")"\n                      | ALEATORIO "(" VAR ")"'
     
-_lr_action_items = {'VAR':([0,5,11,13,14,15,16,17,18,22,],[2,20,20,20,20,20,20,20,31,35,]),'ESCREVER':([0,],[4,]),'(':([0,4,5,9,10,11,13,14,15,16,17,18,],[5,18,5,21,22,5,5,5,5,5,5,5,]),'NUM':([0,5,11,13,14,15,16,17,18,22,],[7,7,7,7,7,7,7,7,7,34,]),'STRING':([0,5,11,13,14,15,16,17,18,],[6,6,6,6,6,6,6,6,30,]),'LIST':([0,5,11,13,14,15,16,17,18,],[8,8,8,8,8,8,8,8,8,]),'ENTRADA':([0,5,11,13,14,15,16,17,18,],[9,9,9,9,9,9,9,9,9,]),'ALEATORIO':([0,5,11,13,14,15,16,17,18,],[10,10,10,10,10,10,10,10,10,]),'$end':([1,12,36,42,43,44,],[0,-2,-1,-3,-4,-5,]),'=':([2,],[11,]),';':([2,3,6,7,8,20,23,24,25,26,27,28,32,33,37,38,39,40,41,],[-13,12,-14,-12,-15,-13,36,-6,-7,-8,-9,-10,-11,-16,42,43,44,-17,-18,]),'+':([2,3,6,7,8,19,20,23,24,25,26,27,28,29,30,31,32,33,40,41,],[-13,13,-14,-12,-15,13,-13,13,-6,-7,-8,-9,-10,13,-14,-13,-11,-16,-17,-18,]),'-':([2,3,6,7,8,19,20,23,24,25,26,27,28,29,30,31,32,33,40,41,],[-13,14,-14,-12,-15,14,-13,14,-6,-7,-8,-9,-10,14,-14,-13,-11,-16,-17,-18,]),'*':([2,3,6,7,8,19,20,23,24,25,26,27,28,29,30,31,32,33,40,41,],[-13,15,-14,-12,-15,15,-13,15,15,15,-8,-9,15,15,-14,-13,-11,-16,-17,-18,]),'/':([2,3,6,7,8,19,20,23,24,25,26,27,28,29,30,31,32,33,40,41,],[-13,16,-14,-12,-15,16,-13,16,16,16,-8,-9,16,16,-14,-13,-11,-16,-17,-18,]),'CONCAT':([2,3,6,7,8,19,20,23,24,25,26,27,28,29,30,31,32,33,40,41,],[-13,17,-14,-12,-15,17,-13,17,-6,-7,-8,-9,-10,17,-14,-13,-11,-16,-17,-18,]),')':([6,7,8,19,20,21,24,25,26,27,28,29,30,31,32,33,34,35,40,41,],[-14,-12,-15,32,-13,33,-6,-7,-8,-9,-10,37,38,39,-11,-16,40,41,-17,-18,]),}
+_lr_action_items = {'VAR':([0,6,13,14,15,16,17,18,19,23,],[4,21,21,21,21,21,21,21,32,36,]),'ESCREVER':([0,],[5,]),'(':([0,5,6,10,11,13,14,15,16,17,18,19,],[6,19,6,22,23,6,6,6,6,6,6,6,]),'NUM':([0,6,13,14,15,16,17,18,19,23,],[8,8,8,8,8,8,8,8,8,35,]),'STRING':([0,6,13,14,15,16,17,18,19,],[7,7,7,7,7,7,7,7,31,]),'LIST':([0,6,13,14,15,16,17,18,19,],[9,9,9,9,9,9,9,9,9,]),'ENTRADA':([0,6,13,14,15,16,17,18,19,],[10,10,10,10,10,10,10,10,10,]),'ALEATORIO':([0,6,13,14,15,16,17,18,19,],[11,11,11,11,11,11,11,11,11,]),'$end':([1,2,3,4,7,8,9,12,21,24,25,26,27,28,33,34,37,41,42,43,44,45,],[0,-1,-2,-15,-16,-14,-17,-4,-15,-8,-9,-10,-11,-12,-13,-18,-3,-19,-20,-5,-6,-7,]),';':([3,4,7,8,9,21,24,25,26,27,28,29,33,34,38,39,40,41,42,],[12,-15,-16,-14,-17,-15,-8,-9,-10,-11,-12,37,-13,-18,43,44,45,-19,-20,]),'+':([3,4,7,8,9,20,21,24,25,26,27,28,29,30,31,32,33,34,41,42,],[13,-15,-16,-14,-17,13,-15,-8,-9,-10,-11,-12,13,13,-16,-15,-13,-18,-19,-20,]),'-':([3,4,7,8,9,20,21,24,25,26,27,28,29,30,31,32,33,34,41,42,],[14,-15,-16,-14,-17,14,-15,-8,-9,-10,-11,-12,14,14,-16,-15,-13,-18,-19,-20,]),'*':([3,4,7,8,9,20,21,24,25,26,27,28,29,30,31,32,33,34,41,42,],[15,-15,-16,-14,-17,15,-15,15,15,-10,-11,15,15,15,-16,-15,-13,-18,-19,-20,]),'/':([3,4,7,8,9,20,21,24,25,26,27,28,29,30,31,32,33,34,41,42,],[16,-15,-16,-14,-17,16,-15,16,16,-10,-11,16,16,16,-16,-15,-13,-18,-19,-20,]),'CONCAT':([3,4,7,8,9,20,21,24,25,26,27,28,29,30,31,32,33,34,41,42,],[17,-15,-16,-14,-17,17,-15,-8,-9,-10,-11,-12,17,17,-16,-15,-13,-18,-19,-20,]),'=':([4,],[18,]),')':([7,8,9,20,21,22,24,25,26,27,28,30,31,32,33,34,35,36,41,42,],[-16,-14,-17,33,-15,34,-8,-9,-10,-11,-12,38,39,40,-13,-18,41,42,-19,-20,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'statement':([0,],[1,]),'expression':([0,5,11,13,14,15,16,17,18,],[3,19,23,24,25,26,27,28,29,]),}
+_lr_goto_items = {'start':([0,],[1,]),'statement':([0,],[2,]),'expression':([0,6,13,14,15,16,17,18,19,],[3,20,24,25,26,27,28,29,30,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,23 +26,25 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> statement","S'",1,None,None,None),
-  ('statement -> VAR = expression ;','statement',4,'p_statement_assign','grammar.py',28),
-  ('statement -> expression ;','statement',2,'p_statement_expr','grammar.py',32),
-  ('statement -> ESCREVER ( expression ) ;','statement',5,'p_statement_write','grammar.py',36),
-  ('statement -> ESCREVER ( STRING ) ;','statement',5,'p_statement_write','grammar.py',37),
-  ('statement -> ESCREVER ( VAR ) ;','statement',5,'p_statement_write','grammar.py',38),
-  ('expression -> expression + expression','expression',3,'p_expression_binop','grammar.py',42),
-  ('expression -> expression - expression','expression',3,'p_expression_binop','grammar.py',43),
-  ('expression -> expression * expression','expression',3,'p_expression_binop','grammar.py',44),
-  ('expression -> expression / expression','expression',3,'p_expression_binop','grammar.py',45),
-  ('expression -> expression CONCAT expression','expression',3,'p_expression_concat','grammar.py',49),
-  ('expression -> ( expression )','expression',3,'p_expression_group','grammar.py',53),
-  ('expression -> NUM','expression',1,'p_expression_num','grammar.py',57),
-  ('expression -> VAR','expression',1,'p_expression_var','grammar.py',61),
-  ('expression -> STRING','expression',1,'p_expression_string','grammar.py',65),
-  ('expression -> LIST','expression',1,'p_expression_list','grammar.py',69),
-  ('expression -> ENTRADA ( )','expression',3,'p_expression_entrada','grammar.py',73),
-  ('expression -> ALEATORIO ( NUM )','expression',4,'p_expression_aleatorio','grammar.py',77),
-  ('expression -> ALEATORIO ( VAR )','expression',4,'p_expression_aleatorio','grammar.py',78),
+  ("S' -> start","S'",1,None,None,None),
+  ('start -> statement','start',1,'p_start','grammar.py',29),
+  ('start -> expression','start',1,'p_start','grammar.py',30),
+  ('statement -> VAR = expression ;','statement',4,'p_statement_assign','grammar.py',34),
+  ('statement -> expression ;','statement',2,'p_statement_expr','grammar.py',38),
+  ('statement -> ESCREVER ( expression ) ;','statement',5,'p_statement_write','grammar.py',42),
+  ('statement -> ESCREVER ( STRING ) ;','statement',5,'p_statement_write','grammar.py',43),
+  ('statement -> ESCREVER ( VAR ) ;','statement',5,'p_statement_write','grammar.py',44),
+  ('expression -> expression + expression','expression',3,'p_expression_binop','grammar.py',48),
+  ('expression -> expression - expression','expression',3,'p_expression_binop','grammar.py',49),
+  ('expression -> expression * expression','expression',3,'p_expression_binop','grammar.py',50),
+  ('expression -> expression / expression','expression',3,'p_expression_binop','grammar.py',51),
+  ('expression -> expression CONCAT expression','expression',3,'p_expression_concat','grammar.py',55),
+  ('expression -> ( expression )','expression',3,'p_expression_group','grammar.py',59),
+  ('expression -> NUM','expression',1,'p_expression_num','grammar.py',63),
+  ('expression -> VAR','expression',1,'p_expression_var','grammar.py',67),
+  ('expression -> STRING','expression',1,'p_expression_string','grammar.py',71),
+  ('expression -> LIST','expression',1,'p_expression_list','grammar.py',75),
+  ('expression -> ENTRADA ( )','expression',3,'p_expression_entrada','grammar.py',79),
+  ('expression -> ALEATORIO ( NUM )','expression',4,'p_expression_aleatorio','grammar.py',83),
+  ('expression -> ALEATORIO ( VAR )','expression',4,'p_expression_aleatorio','grammar.py',84),
 ]

@@ -39,10 +39,15 @@ class ArithEval:
     @staticmethod
     def _eval_write(ast):
         expr = ArithEval.evaluate(ast[1])
-        if isinstance(expr, str):
+        if isinstance(expr, list):
+            # Converte a lista em uma string formatada
+            expr_str = "[" + ", ".join(map(str, expr)) + "]"
+            ArithEval.operators['esc']([expr_str])
+            return expr_str
+        elif isinstance(expr, str):
             expr = ArithEval._interpolate(expr)
-        ArithEval.operators['esc']([expr])
-        return expr
+            ArithEval.operators['esc']([expr])
+            return expr
 
     @staticmethod
     def _eval_tuple(ast):

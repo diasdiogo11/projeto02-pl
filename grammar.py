@@ -23,6 +23,12 @@ class ArithGrammar:
     def parse(self, string):
         self.lexer.input(string)
         return self.yacc.parse(lexer=self.lexer.lexer)
+    
+    # Regra de produção para o ponto de entrada do parser
+    def p_start(self, p):
+        """start : statement
+                 | expression"""
+        p[0] = p[1]
 
     def p_statement_assign(self, p):
         'statement : VAR "=" expression ";"'
@@ -77,6 +83,7 @@ class ArithGrammar:
         '''expression : ALEATORIO "(" NUM ")"
                       | ALEATORIO "(" VAR ")"'''
         p[0] = ('aleatorio', p[3])
+        
 
     def p_error(self, p):
         print(f"Syntax error at '{p.value}'" if p else "Syntax error at end of input")
