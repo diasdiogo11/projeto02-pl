@@ -5,7 +5,7 @@ from eval import ArithEval
 
 # Verifica se o nome do arquivo foi passado como argumento na linha de comando
 if len(sys.argv) != 2:
-    print("Usage: python script.py filename.fca")
+    print("Use filename.fca")
     sys.exit(1)
 
 # Obtém o nome do arquivo a partir da linha de comando

@@ -49,11 +49,11 @@ class ArithEval:
         if isinstance(expr, list):
             expr_str = "[" + ", ".join(map(str, expr)) + "]"
             ArithEval.operators['esc']([expr_str])
-            return expr_str
         elif isinstance(expr, str):
             expr = ArithEval._interpolate(expr)
             ArithEval.operators['esc']([expr])
-            return expr
+        else:
+            ArithEval.operators['esc']([expr])
 
     @staticmethod
     def _eval_tuple(ast):

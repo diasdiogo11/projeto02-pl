@@ -17,7 +17,7 @@ def process_input(input_string):
         print(e)
 
 
-print("Bem-vindo ao interpretador aritmético. Comece a inserir suas expressões ou comandos:")
+print("Bem-vindo ao interpretador aritmético. Comece a inserir as suas expressões ou comandos:")
 
 while True:
     expr = input(">> ")
