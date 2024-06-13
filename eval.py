@@ -11,15 +11,10 @@ class ArithEval:
         "-": lambda args: args[0] - args[1],
         "*": lambda args: args[0] * args[1],
         "/": lambda args: args[0] // args[1],  # divisão inteira
-        "seq": lambda args: args[
-            -1
-        ],  # para sequência de instruções, retorna o último valor
-        "atr": lambda args: ArithEval._attrib(
-            args
-        ),  # atribuição de valor a uma variável
+        "seq": lambda args: args[-1],  # para sequência de instruções, retorna o último valor
+        "atr": lambda args: ArithEval._attrib(args),  # atribuição de valor a uma variável
         "esc": lambda args: print(args[0]),  # função de saída (print)
-        "concat": lambda args: str(args[0])
-        + str(args[1]),  # concatenação de strings ou listas
+        "concat": lambda args: str(args[0]) + str(args[1]),  # concatenação de strings ou listas
     }
 
     @staticmethod
