@@ -3,31 +3,31 @@ from lexer import ArithLexer
 from grammar import ArithGrammar
 from eval import ArithEval
 
-# Verifica se o nome do arquivo foi passado como argumento na linha de comando
+# Verifica se o nome do ficheiro foi passado como argumento na linha de comando
 if len(sys.argv) != 2:
     print("Use filename.fca")
     sys.exit(1)
 
-# Obtém o nome do arquivo a partir da linha de comando
+# Obtém o nome do ficheiro a partir da linha de comando
 filename = sys.argv[1]
 
-# Crie as instâncias do lexer, parser e avaliador
+# Cria as instâncias do lexer, parser e avaliador
 lexer = ArithLexer()
 lexer.build()
 parser = ArithGrammar()
 parser.build()
 evaluator = ArithEval()
 
-# Ler o script do arquivo
+# Lê o script do ficheiro
 try:
-    with open(filename, 'r') as file:
+    with open(filename, "r") as file:
         script = file.read()
 except FileNotFoundError:
-    print(f"Arquivo {filename} não encontrado.")
+    print(f"Ficheiro {filename} não encontrado.")
     sys.exit(1)
 
-# Parse e execute o script linha a linha
-for line in script.split('\n'):
+# Parse e executa o script linha a linha
+for line in script.split("\n"):
     if line.strip():  # Ignora linhas vazias
         try:
             ast = parser.parse(line)

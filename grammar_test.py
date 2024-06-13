@@ -8,12 +8,12 @@ ag = ArithGrammar()
 ag.build()
 
 exemplos = [
-    'FUNCAO soma(a,b),: a+b ;'
+    "FUNCAO soma(a,b),: a+b ;"
 ]
 
 for frase in exemplos:
     print(f"----------------------")
-    print(f"--- frase '{frase}'")
-    res = ag.parse ( frase ) 
-    print("resultado: ")
+    print(f"--- Frase '{frase}'")
+    res = ag.parse(frase)
+    print("Resultado: ")
     pp.pprint(res)
